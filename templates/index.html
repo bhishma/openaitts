@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI TTS</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="shortcut icon" href="/static/favicon.ico">
+</head>
+<body>
+    <h1>OpenAI TTS</h1>
+    
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="text">Enter Text (max 4096 char): <span class="help-icon">?</span>
+            <span class="help-text">Enter text directly or upload a text file.</span>
+        </label><br>
+        <textarea id="text" name="text" rows="4" cols="50" maxlength="4096" ></textarea><br><br>
+        
+        <label for="file">Or Upload a Text File: <span class="help-icon">?</span>
+            <span class="help-text">Upload a .txt file containing text to convert.</span>
+        </label>
+        <input type="file" id="file" name="file" accept=".txt"><br><br>
+        
+        <label for="model">Select Model: <span class="help-icon">?</span>
+            <span class="help-text">Select the AI model to use for speech synthesis.</span>
+        </label>
+        <select id="model" name="model">
+            {% for model in models %}
+                <option value="{{ model }}">{{ model }}</option>
+            {% endfor %}
+        </select><br><br>
+        
+        <label for="voice">Select Voice: <span class="help-icon">?</span>
+            <span class="help-text">Choose from multiple voice options for different tones and styles.</span>
+        </label>
+        <select id="voice" name="voice">
+            {% for voice in voices %}
+                <option value="{{ voice }}">{{ voice }}</option>
+            {% endfor %}
+        </select><br><br>
+        
+        <label for="response_format">Select Output Format: <span class="help-icon">?</span>
+            <span class="help-text">Select the format of the generated speech file (Defaults to MP3).</span>
+        </label>
+        <select id="response_format" name="response_format">
+            {% for format in formats %}
+                <option value="{{ format }}">{{ format }}</option>
+            {% endfor %}
+        </select><br><br>
+        
+        <label for="speed">Select Speed: <span class="help-icon">?</span>
+            <span class="help-text">Adjust the speech speed (0.5x for slower speech, 2.0x for faster speech).</span>
+        </label>
+        <input type="number" id="speed" name="speed" min="0.5" max="2.0" step="0.1" value="1.0"><br><br>
+        
+        <button type="submit">Convert to Speech</button>
+    </form>
+    <p>For more information on the available models, voices, and formats, please refer to the <a target="_blank" href="https://platform.openai.com/docs/api-reference/audio/createSpeech">OpenAI API Documentation</a>.</p>
+</body>
+</html>
